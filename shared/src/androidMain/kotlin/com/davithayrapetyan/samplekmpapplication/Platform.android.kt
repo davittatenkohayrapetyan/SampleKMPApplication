@@ -1,5 +1,6 @@
 package com.davithayrapetyan.samplekmpapplication
 
+import com.davithayrapetyan.samplekmpapplication.domain.NextLaunchInfo
 import io.ktor.client.*
 import io.ktor.client.engine.cio.* // For JVM/Android
 import io.ktor.client.request.get
@@ -29,7 +30,7 @@ actual class SpaceXApi {
         override fun checkClientTrusted(certs: Array<X509Certificate>, authType: String) {}
         override fun checkServerTrusted(certs: Array<X509Certificate>, authType: String) {}
     }
-    actual suspend fun fetchNextLaunch(): String {
+    actual suspend fun fetchNextLaunch(): NextLaunchInfo {
         return try {
             val response = client.get(SPACEX_URL)
             response.bodyAsText() // Correct usage for Ktor 2.0+

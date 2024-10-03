@@ -1,5 +1,6 @@
 package com.davithayrapetyan.samplekmpapplication
 
+import com.davithayrapetyan.samplekmpapplication.domain.NextLaunchInfo
 import io.ktor.client.HttpClient
 
 interface Platform {
@@ -13,6 +14,6 @@ expect class SpaceXApi {
 
     val client: HttpClient
 
-    suspend fun fetchNextLaunch(): String
+    suspend fun fetchNextLaunch(): NextLaunchInfo
 
 }

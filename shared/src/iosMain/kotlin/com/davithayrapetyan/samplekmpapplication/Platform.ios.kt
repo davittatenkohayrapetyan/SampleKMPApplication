@@ -1,5 +1,6 @@
 package com.davithayrapetyan.samplekmpapplication
 
+import com.davithayrapetyan.samplekmpapplication.domain.NextLaunchInfo
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.darwin.Darwin
 import io.ktor.client.request.get
@@ -16,7 +17,7 @@ actual fun getPlatform(): Platform = IOSPlatform()
 actual class SpaceXApi {
     actual val client = HttpClient(Darwin.create())
 
-    actual suspend fun fetchNextLaunch(): String {
+    actual suspend fun fetchNextLaunch(): NextLaunchInfo {
 
         return try {
             val response = client.get(SPACEX_URL)
