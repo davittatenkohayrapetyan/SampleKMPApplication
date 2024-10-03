@@ -3,17 +3,14 @@ package com.davithayrapetyan.samplekmpapplication.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.davithayrapetyan.samplekmpapplication.SpaceXApi
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -39,15 +36,34 @@ class MainActivity : ComponentActivity() {
 fun GreetingView(text: String) {
     Text(text = text)
 }
+
 @Composable
 fun GreetingScreen() {
     var greetingText by remember { mutableStateOf("Loading...") }
     val spaceXApi = SpaceXApi()
+    val coroutineScope = rememberCoroutineScope()
 
-    LaunchedEffect(Unit) {
-        val result = spaceXApi.fetchNextLaunch()
-        greetingText = result
+    // Layout with button
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center
+    ) {
+        GreetingView(greetingText)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Add a button
+        Button(onClick = {
+            // Perform API call in coroutine
+            coroutineScope.launch {
+                greetingText = "Button Clicked! Fetching new data..."
+                val newResult = spaceXApi.fetchNextLaunch()
+                greetingText = newResult
+            }
+        }) {
+            Text("Refresh Data")
+        }
     }
-
-    GreetingView(greetingText)
 }
