@@ -9,4 +9,8 @@ data class NextLaunchInfo(
     val missionName: String,
     val launchDate: Instant,
     val rocketName: String
-)
+){
+    override fun toString(): String {
+        return "Next Launch Info: Flight #$flightNumber, Mission '$missionName', Launch Date: $launchDate, Rocket: $rocketName"
+    }
+}

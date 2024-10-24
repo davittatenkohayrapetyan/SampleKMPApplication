@@ -5,9 +5,13 @@ import kotlinx.datetime.Instant
 import kotlinx.serialization.json.Json
 
 class SpaceXParser {
+    private val json = Json {
+        ignoreUnknownKeys = true // This will ignore unknown fields in the JSON
+    }
+
     fun parseLaunchData(jsonString: String): NextLaunchInfo {
         // Deserialize the JSON string into LaunchData class
-        val launchData = Json.decodeFromString<LaunchData>(jsonString)
+        val launchData = json.decodeFromString<LaunchData>(jsonString)
 
         // Convert the launchDate to Instant
         val launchDateInstant = Instant.parse(launchData.launchDate)
@@ -17,7 +21,7 @@ class SpaceXParser {
             flightNumber = launchData.flightNumber.toString(),
             missionName = launchData.missionName,
             launchDate = launchDateInstant,
-            rocketName = launchData.rocket.rocketName
+            rocketName = launchData.rocket
         )
     }
 }

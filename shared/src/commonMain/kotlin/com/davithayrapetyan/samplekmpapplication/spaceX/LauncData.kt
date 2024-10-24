@@ -4,14 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Rocket(
-    @SerialName("rocket_name") val rocketName: String
-)
-
-@Serializable
 data class LaunchData(
     @SerialName("flight_number") val flightNumber: Int,
-    @SerialName("mission_name") val missionName: String,
-    @SerialName("launch_date_utc") val launchDate: String,
-    val rocket: Rocket
+    @SerialName("name") val missionName: String,
+    @SerialName("date_utc") val launchDate: String,
+    @SerialName("rocket") val rocket: String // Change from Rocket object to String as per the received JSON
 )

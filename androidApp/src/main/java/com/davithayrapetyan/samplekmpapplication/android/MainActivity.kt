@@ -60,7 +60,7 @@ fun GreetingScreen() {
             coroutineScope.launch {
                 greetingText = "Button Clicked! Fetching new data..."
                 val newResult = spaceXApi.fetchNextLaunch()
-                greetingText = newResult
+                greetingText = newResult.toString()
             }
         }) {
             Text("Refresh Data")

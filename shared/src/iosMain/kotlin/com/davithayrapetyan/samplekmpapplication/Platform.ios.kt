@@ -17,13 +17,13 @@ actual fun getPlatform(): Platform = IOSPlatform()
 actual class SpaceXApi {
     actual val client = HttpClient(Darwin.create())
 
-    actual suspend fun fetchNextLaunch(): NextLaunchInfo {
+    actual suspend fun fetchNextLaunch(): NextLaunchInfo? {
 
         return try {
             val response = client.get(SPACEX_URL)
             response.bodyAsText() // Correct usage for Ktor 2.0+
         } catch (e: Exception) {
-            "Error: ${e.message}"
+            null
         }
     }
 
